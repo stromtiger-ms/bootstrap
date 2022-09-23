@@ -1,0 +1,51 @@
+name: Build java and Docker image - push to GitHub packages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build Java
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'corretto'
+          java-version: '17'
+      - name: Execute maven Build
+        run: mvn clean package
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: bootstrap.jar
+          path: target/bootstrap-1.0-jar-with-dependencies.jar
+
+  docker:
+    name: Build Docker image
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: bootstrap.jar
+          path: target/bootstrap-1.0-jar-with-dependencies.jar
+      -
+        name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build --tag ghcr.io/stromtiger-ms/bootstrap:latest .
+      - name: Push Docker image to GitHub Packages
+        run: docker push ghcr.io/stromtiger-ms/bootstrap:latest
