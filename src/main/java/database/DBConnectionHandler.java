@@ -2,7 +2,12 @@ package database;
 
 import common.DBConstants;
 import model.Stromlastdaten;
+import org.apache.ibatis.jdbc.ScriptRunner;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.*;
 import java.util.List;
 
@@ -65,5 +70,18 @@ public class DBConnectionHandler {
 
         System.out.println("Sending results to Database...");
         insertStromlastDatumBatch.executeBatch();
+    }
+
+    public void runSQLScript(String scriptPath) {
+        ScriptRunner scriptRunner = new ScriptRunner(connection);
+        try {
+            Reader fileReader = new BufferedReader(new FileReader(scriptPath));
+            scriptRunner.setLogWriter(null);
+            scriptRunner.runScript(fileReader);
+
+        } catch (IOException ioException) {
+            System.out.println(":(");
+            ioException.printStackTrace();
+        }
     }
 }
