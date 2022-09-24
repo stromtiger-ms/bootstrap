@@ -6,6 +6,8 @@ CREATE TABLE "verbraucher"
     name          VARCHAR
 );
 
+INSERT INTO "verbraucher" (name) VALUES ('V1'), ('V2'), ('V3');
+
 CREATE TABLE "stromlastdaten"
 (
     stromlastdatenId SERIAL NOT NULL PRIMARY KEY,
