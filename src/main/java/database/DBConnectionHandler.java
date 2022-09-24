@@ -64,6 +64,7 @@ public class DBConnectionHandler {
                 insertStromlastDatumBatch.setDouble(2, stromlastdaten.getKw());
                 insertStromlastDatumBatch.setString(3, stromlastdaten.getStatus());
                 insertStromlastDatumBatch.setInt(4, stromlastdaten.getKundeId());
+                insertStromlastDatumBatch.setBoolean(5, false);
                 insertStromlastDatumBatch.addBatch();
             }
         }

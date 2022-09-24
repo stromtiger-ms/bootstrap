@@ -7,9 +7,9 @@ public final class DBConstants {
     public final static String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
     // Table names
-    private static final String TABLE_NAME_STROMLASTDATEN = "testtabelle";
+    private static final String TABLE_NAME_STROMLASTDATEN = "stromlastdaten";
     // Statements
-    public static final String INSERT_STROMLASTDATUM = "INSERT INTO " + TABLE_NAME_STROMLASTDATEN + " (zeit, kw, status, kundeId) VALUES (?, ?, ?, ?)";
+    public static final String INSERT_STROMLASTDATUM = "INSERT INTO " + TABLE_NAME_STROMLASTDATEN + " (zeit, kw, status, verbraucherId, isPrediction) VALUES (?, ?, ?, ?, ?)";
 
     // File locations
     public static final String CSV_FILE_PATH = "src/main/resources/import.csv";
