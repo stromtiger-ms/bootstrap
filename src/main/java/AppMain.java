@@ -23,6 +23,10 @@ public class AppMain {
         // Create Insert Statements from Datasets and load into database
         try {
             dbConnectionHandler.importDataToDatabase(stromlastdatenList);
+            System.out.println("Committing changes");
+            dbConnectionHandler.commit();
+            System.out.println("Programm endet Successfully - Closing DB Connection gracefully");
+            dbConnectionHandler.closeConnection();
         } catch (Exception exception) {
             exception.printStackTrace();
         }
