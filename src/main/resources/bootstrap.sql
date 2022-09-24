@@ -12,6 +12,7 @@ CREATE TABLE "stromlastdaten"
     zeit             VARCHAR,
     kw               decimal,
     status           varchar,
-    kundeId          int,
-    FOREIGN KEY (kundeId) REFERENCES verbraucher (verbraucherId)
+    verbraucherId    int,
+    isPrediction     boolean,
+    FOREIGN KEY (verbraucherId) REFERENCES verbraucher (verbraucherId)
 );
